@@ -1,0 +1,6 @@
+.game-body {
+  display: relative;
+  width: 100%;
+  border: .5px solid lightgrey;
+  background-color: white;
+}

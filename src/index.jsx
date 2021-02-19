@@ -1,10 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
+import './css/main.css';
+import './css/GameHeader.css';
+import './css/GameBody.css';
+import GameBody from './js/components/GameBody';
+import GameHeader from './js/components/GameHeader';
 
 ReactDOM.render(
   <React.StrictMode>
-    <div>Bonjour</div>
+    <div>
+      <GameHeader />
+      <GameBody />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,0 +1,27 @@
+.game-header {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: skyblue;
+  padding: 0 5px;
+}
+
+.counter {
+  font-family: arial;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
+@media screen and (min-width: 500px) {
+  .game-header {
+    height: 80px;
+  }
+}

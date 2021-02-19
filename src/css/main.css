@@ -1,0 +1,10 @@
+body {
+  background-color: #eee;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.container {
+  width: 100%;
+  padding: 0 !important;
+}
