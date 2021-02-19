@@ -1,6 +1,22 @@
 .game-body {
   display: relative;
   width: 100%;
-  border: .5px solid lightgrey;
-  background-color: white;
+  border: .5px solid transparent;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  padding: 0 !important;
+}
+
+@media screen and (min-width: 500px) {
+  .cards {
+    margin-top: 20px;
+  }
 }

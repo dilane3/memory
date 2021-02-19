@@ -15,10 +15,9 @@
 
 .player-info > span {
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   font-family: arial;
   color: white;
-  line-height: 20px;
 }
 
 .player-info > span:first-child {
@@ -30,9 +29,20 @@
 }
 
 .player-image img {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
   border: 2px solid white;
   text-align: center;
+}
+
+@media screen and (min-width: 500px) {
+  .playerinfo {
+    font-size: 14px;
+  }
+
+  .player-image img {
+    width: 40px;
+    height: 40px;
+  }
 }
