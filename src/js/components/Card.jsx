@@ -8,7 +8,7 @@ const Card = ({id, url, state, onTouchCard}) => {
     url = require("../../docs/" + url);
   }
 
-  state = "card " + state;
+  state = state !== "hidden" ? "card " + state : "card";
 
   return (
     <div className={state} onClick={() => onTouchCard(id)}>

@@ -32,6 +32,18 @@
   opacity: .7;
 }
 
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.transparent {
+  opacity: 0;
+}
+
 @media screen and (min-width: 500px) {
   .cards {
     margin-top: 20px;

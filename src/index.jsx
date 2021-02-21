@@ -4,15 +4,11 @@ import * as serviceWorker from './serviceWorker';
 import './css/main.css';
 import './css/GameHeader.css';
 import './css/GameBody.css';
-import GameBody from './js/components/GameBody';
-import GameHeader from './js/components/GameHeader';
+import App from './js/components/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <div>
-      <GameHeader />
-      <GameBody />
-    </div>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

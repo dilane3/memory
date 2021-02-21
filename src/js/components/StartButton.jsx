@@ -1,8 +1,9 @@
 import React from 'react';
 
-const StartButton = ({onStart}) => {
+const StartButton = ({onStart, state}) => {
+  let nameClassName = `start-button ${state}`;
   return (
-    <div className="start-button" onClick={() => onStart()}>
+    <div className={nameClassName} onClick={() => onStart()}>
       START
     </div>
   )

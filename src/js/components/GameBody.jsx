@@ -5,10 +5,10 @@ import StartButton from './StartButton';
 import cards from '../lib/CardsStored';
 
 class GameBody extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {cards: []}
+    this.state = {cards: [], buttonState: "visible"};
     this.cardSelected = [];
   }
 
@@ -32,6 +32,8 @@ class GameBody extends React.Component {
               }
             }
 
+            this.props.onScore();
+
           } else {
             for (let card of allCards) {
               if (card.id === cardSelected[0].id || card.id === cardSelected[1].id) {
@@ -43,7 +45,7 @@ class GameBody extends React.Component {
           this.setState({cards: allCards});
         }
       },
-      600
+      1000
     );
   }
 
@@ -74,7 +76,7 @@ class GameBody extends React.Component {
       i += 1;
     }
 
-    this.setState({cards: table});
+    this.setState({cards: table, buttonState: "hidden"});
   }
 
   handleTouchCard = (id) => {
@@ -109,7 +111,10 @@ class GameBody extends React.Component {
           }
         </div>
 
-        <StartButton onStart={this.handleStart} />
+        <StartButton
+          onStart={this.handleStart}
+          state={this.state.buttonState}
+        />
       </div>
     );
   }

@@ -3,9 +3,8 @@ import Player from './Player';
 import Counter from './Counter';
 
 class GameHeader extends React.Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
   }
 
   render() {
@@ -13,18 +12,18 @@ class GameHeader extends React.Component {
       <div className="game-header">
         <Player
           avatar="font.jpeg"
-          name="dilane"
-          score="8"
+          name={this.props.players[0].name}
+          score={this.props.players[0].score}
         />
 
         <Counter
-          counter="00:00"
+          counter={this.props.counter}
         />
 
         <Player
           avatar="font.jpeg"
-          name="cpu"
-          score="8"
+          name={this.props.players[1].name}
+          score={this.props.players[1].score}
         />
       </div>
     );
