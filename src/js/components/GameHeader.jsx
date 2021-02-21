@@ -23,7 +23,7 @@ class GameHeader extends React.Component {
 
         <Player
           avatar="font.jpeg"
-          name="computer"
+          name="cpu"
           score="8"
         />
       </div>

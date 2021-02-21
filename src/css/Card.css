@@ -4,6 +4,12 @@
   border: .8px solid lightgrey;
   margin-right: 5px;
   margin-bottom: 5px;
+  box-shadow: 1px 2px 3px grey;
+  transition: all .3s;
+}
+
+.card:hover {
+  box-shadow: 3px 5px 8px grey;
 }
 
 .card img {
@@ -15,6 +21,8 @@
   .card {
     width: 20%;
     height: 100px;
+    margin-right: 10px;
+   margin-bottom: 10px;
   }
 
   .card img {
@@ -25,10 +33,12 @@
 @media screen and (min-width: 700px) {
   .card {
     width: 15%;
-    height: 110px;
+    height: 130px;
+    margin-right: 12px;
+    margin-bottom: 12px;
   }
 
   .card img {
-    height: 110px;
+    height: 130px;
   }
 }
