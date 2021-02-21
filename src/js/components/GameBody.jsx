@@ -9,11 +9,43 @@ class GameBody extends React.Component {
     super();
 
     this.state = {cards: []}
+    this.cardSelected = [];
   }
 
   componentDidMount() {
     screenConfig();
   };
+
+  componentWillUpdate() {
+
+    setTimeout(
+      () => {
+        if (this.cardSelected.length === 2) {
+          let allCards = [...this.state.cards];
+          let cardSelected = this.cardSelected.slice();
+          this.cardSelected = [];
+
+          if (cardSelected[0].id === cardSelected[1].id) {
+            for (let card of allCards) {
+              if (card.id === cardSelected[0].id) {
+                card.state = "transparent";
+              }
+            }
+
+          } else {
+            for (let card of allCards) {
+              if (card.id === cardSelected[0].id || card.id === cardSelected[1].id) {
+                card.state = "hidden";
+              }
+            }
+          }
+
+          this.setState({cards: allCards});
+        }
+      },
+      600
+    );
+  }
 
   handleStart = () => {
     let allCards = [...cards];
@@ -45,6 +77,18 @@ class GameBody extends React.Component {
     this.setState({cards: table});
   }
 
+  handleTouchCard = (id) => {
+    let allCards = [...this.state.cards];
+
+    let index = allCards.findIndex(ca => ca.newIndex === id);
+
+    allCards[index].state = 'visible';
+
+    this.cardSelected.push(allCards[index]);
+
+    this.setState({cards: allCards});
+  }
+
   render() {
 
     return (
@@ -52,7 +96,15 @@ class GameBody extends React.Component {
         <div className="cards">
           {
             this.state.cards.map(card => {
-              return <Card url={card.url} state={card.state} key={card.newIndex} />
+              return (
+                <Card
+                  id={card.newIndex}
+                  url={card.url}
+                  state={card.state}
+                  onTouchCard={this.handleTouchCard}
+                  key={card.newIndex}
+                />
+              )
             })
           }
         </div>

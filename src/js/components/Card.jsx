@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../css/Card.css';
 
-const Card = ({url, state}) => {
+const Card = ({id, url, state, onTouchCard}) => {
   if (state === 'hidden') {
     url = require("../../docs/lemonFond.jpg");
   } else {
@@ -11,7 +11,7 @@ const Card = ({url, state}) => {
   state = "card " + state;
 
   return (
-    <div className={state}>
+    <div className={state} onClick={() => onTouchCard(id)}>
       <img src={url} alt="card" />
     </div>
   );
