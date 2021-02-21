@@ -2,8 +2,13 @@ import React from 'react';
 import '../../css/Card.css';
 
 const Card = ({url, state}) => {
+  if (state === 'hidden') {
+    url = require("../../docs/lemonFond.jpg");
+  } else {
+    url = require("../../docs/" + url);
+  }
+
   state = "card " + state;
-  url = require("../../docs/" + url);
 
   return (
     <div className={state}>

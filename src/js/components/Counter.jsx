@@ -2,7 +2,7 @@ import React from 'react';
 
 const Counter = ({counter}) => {
   return (
-    <div class="counter">
+    <div className="counter">
       {counter}
     </div>
   );

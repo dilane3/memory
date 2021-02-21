@@ -17,10 +17,10 @@ class GameBody extends React.Component {
 
   handleStart = () => {
     let allCards = [...cards];
-    let table1 = [];
+    let table = [];
     let alreadyTakeCards = [];
 
-    let cpt = 0;
+    let i = 1;
 
     while (allCards.length >= 1) {
       let index = Math.floor(Math.random() * (allCards.length));
@@ -28,17 +28,21 @@ class GameBody extends React.Component {
       let card = allCards[index];
       let indexCard = alreadyTakeCards.findIndex(ca => ca.id === card.id);
 
-      if (indexCard === -1) {
-        table1.push(card);
+      if (indexCard === -1) { // if the element is not found into alreadyTakeCards table
+        card = {...card, newIndex: i};
+        table.push(card);
         alreadyTakeCards.push(card);
       } else {
-        table1.push(card);
+        card = {...card, newIndex: i};
+        table.push(card);
         alreadyTakeCards.splice(indexCard, 1);
         allCards.splice(index, 1);
       }
+
+      i += 1;
     }
 
-    this.setState({cards: table1});
+    this.setState({cards: table});
   }
 
   render() {
@@ -48,7 +52,7 @@ class GameBody extends React.Component {
         <div className="cards">
           {
             this.state.cards.map(card => {
-              return <Card url={card.url} state="" />
+              return <Card url={card.url} state={card.state} key={card.newIndex} />
             })
           }
         </div>
