@@ -2,6 +2,11 @@ body {
   background-color: #eee;
   overflow: hidden;
   padding: 0 !important;
+  background-image: url("../docs/fondEcran.jpg");
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .container {

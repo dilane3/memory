@@ -10,6 +10,8 @@ class GameBody extends React.Component {
 
     this.state = {cards: [], buttonState: "visible"};
     this.cardSelected = [];
+    this.towCardSelected = false;
+    this.timerID = 0;
   }
 
   componentDidMount() {
@@ -18,35 +20,43 @@ class GameBody extends React.Component {
 
   componentWillUpdate() {
 
-    setTimeout(
-      () => {
-        if (this.cardSelected.length === 2) {
-          let allCards = [...this.state.cards];
-          let cardSelected = this.cardSelected.slice();
-          this.cardSelected = [];
+    if (this.cardSelected.length === 2) {
+      let allCards = [...this.state.cards];
+      let cardSelected = this.cardSelected.slice();
+      this.towCardSelected = true;
 
-          if (cardSelected[0].id === cardSelected[1].id) {
-            for (let card of allCards) {
-              if (card.id === cardSelected[0].id) {
-                card.state = "transparent";
-              }
-            }
-
-            this.props.onScore();
-
-          } else {
-            for (let card of allCards) {
-              if (card.id === cardSelected[0].id || card.id === cardSelected[1].id) {
-                card.state = "hidden";
-              }
-            }
+      if (cardSelected[0].id === cardSelected[1].id) {
+        for (let card of allCards) {
+          if (card.id === cardSelected[0].id) {
+            this.timerID = setTimeout(() => {
+              card.state = "transparent";
+            }, 500);
           }
-
-          this.setState({cards: allCards});
         }
-      },
-      1000
-    );
+
+        this.props.onScore();
+
+      } else {
+        for (let card of allCards) {
+          if (card.id === cardSelected[0].id || card.id === cardSelected[1].id) {
+            this.timerID = setTimeout(() => {
+              card.state = "hidden";
+            }, 200);
+          }
+        }
+      }
+
+      this.timerID = setTimeout(() => {
+        this.towCardSelected = false;
+      }, 500);
+
+      this.cardSelected = [];
+      this.setState({cards: allCards});
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   handleStart = () => {
@@ -83,12 +93,17 @@ class GameBody extends React.Component {
     let allCards = [...this.state.cards];
 
     let index = allCards.findIndex(ca => ca.newIndex === id);
+    let card = allCards[index];
 
-    allCards[index].state = 'visible';
+    if (card.state !== "transparent" && !this.towCardSelected) {
+      console.log(this.cardSelected.length);
+      allCards[index].state = 'visible';
 
-    this.cardSelected.push(allCards[index]);
+      this.cardSelected.push(allCards[index]);
 
-    this.setState({cards: allCards});
+      this.setState({ cards: allCards });
+    }
+    
   }
 
   render() {

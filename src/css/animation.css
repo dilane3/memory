@@ -1,0 +1,23 @@
+.fade-in {
+  opacity: 1;
+  transition: all 1s;
+}
+
+.fade-in-50 {
+  opacity: .5;
+  transition: all .5s;
+}
+
+.fade-in-70 {
+  opacity: .7;
+  transition: all .7s;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: all 1s;
+}
+
+.not-scaled {
+  transform: scale(1) !important;
+}

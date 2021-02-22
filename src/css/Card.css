@@ -10,6 +10,8 @@
 
 .card:hover {
   box-shadow: 3px 5px 8px grey;
+  transform: scale(1.08);
+  transition: all .4s;
 }
 
 .card img {

@@ -4,6 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import './css/main.css';
 import './css/GameHeader.css';
 import './css/GameBody.css';
+import './css/animation.css';
 import App from './js/components/App';
 
 ReactDOM.render(
