@@ -34,7 +34,7 @@ class GameBody extends React.Component {
           }
         }
 
-        this.props.onScore();
+        this.props.onScore(0);
 
       } else {
         for (let card of allCards) {
@@ -48,6 +48,7 @@ class GameBody extends React.Component {
 
       this.timerID = setTimeout(() => {
         this.towCardSelected = false;
+        this.props.chooseWinner();
       }, 500);
 
       this.cardSelected = [];
@@ -59,6 +60,8 @@ class GameBody extends React.Component {
     clearInterval(this.timerID);
   }
 
+  // this function initialize game by genered all the position
+  // that will take all card in the interface
   handleStart = () => {
     let allCards = [...cards];
     let table = [];
@@ -67,9 +70,12 @@ class GameBody extends React.Component {
     let i = 1;
 
     while (allCards.length >= 1) {
+      // we generate index between 0 an allCards.length-1 using random function
       let index = Math.floor(Math.random() * (allCards.length));
 
       let card = allCards[index];
+
+      // here we find the corresponding card in the alreadyTakeCards table
       let indexCard = alreadyTakeCards.findIndex(ca => ca.id === card.id);
 
       if (indexCard === -1) { // if the element is not found into alreadyTakeCards table
@@ -86,15 +92,20 @@ class GameBody extends React.Component {
       i += 1;
     }
 
+    // we start game here
+    this.props.onStartGame(true);
     this.setState({cards: table, buttonState: "hidden"});
   }
 
   handleTouchCard = (id) => {
     let allCards = [...this.state.cards];
 
+    // we research the index of the selected card
     let index = allCards.findIndex(ca => ca.newIndex === id);
     let card = allCards[index];
 
+    // we verify if the card selected is not transparent (hidden definitly)
+    // and if we have not already selected two cards
     if (card.state !== "transparent" && !this.towCardSelected) {
       console.log(this.cardSelected.length);
       allCards[index].state = 'visible';
