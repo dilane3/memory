@@ -78,7 +78,7 @@ class App extends React.Component {
     }
   }
 
-  chooseWinner = (totalCardSelected) => {
+  chooseWinner = () => {
     let players = [...this.state.players];
     let totalScore = players[0].score + players[1].score;
 
@@ -101,6 +101,7 @@ class App extends React.Component {
           onScore={this.handleChangeScore}
           onStartGame={this.startGame}
           chooseWinner={this.chooseWinner}
+          gameIsStart={this.start}
         />
       </div>
     );

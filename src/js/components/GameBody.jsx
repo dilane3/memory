@@ -10,8 +10,10 @@ class GameBody extends React.Component {
 
     this.state = {cards: [], buttonState: "visible"};
     this.cardSelected = [];
-    this.towCardSelected = false;
+    this.twoCardSelected = false;
     this.timerID = 0;
+    this.allCards = [];
+    this.hand = true;
   }
 
   componentDidMount() {
@@ -19,12 +21,14 @@ class GameBody extends React.Component {
   };
 
   componentWillUpdate() {
-
+    // When the player have already selected 2 cards, these instruction
+    // will be execute
     if (this.cardSelected.length === 2) {
       let allCards = [...this.state.cards];
       let cardSelected = this.cardSelected.slice();
-      this.towCardSelected = true;
+      this.twoCardSelected = true;
 
+      // we verify if the cards selected are equal
       if (cardSelected[0].id === cardSelected[1].id) {
         for (let card of allCards) {
           if (card.id === cardSelected[0].id) {
@@ -44,15 +48,28 @@ class GameBody extends React.Component {
             }, 200);
           }
         }
+
+        this.timerID = setTimeout(() => {
+          this.passHand();
+
+          // clearInterval(this.timerID);
+        }, 400);
       }
 
       this.timerID = setTimeout(() => {
-        this.towCardSelected = false;
         this.props.chooseWinner();
+        this.twoCardSelected = false;
+
+        clearInterval(this.timerID);
       }, 500);
 
       this.cardSelected = [];
       this.setState({cards: allCards});
+
+    }
+
+    if (!this.hand) {
+      this.handleComputerGame();
     }
   }
 
@@ -92,6 +109,8 @@ class GameBody extends React.Component {
       i += 1;
     }
 
+    this.allCards = table;
+
     // we start game here
     this.props.onStartGame(true);
     this.setState({cards: table, buttonState: "hidden"});
@@ -100,21 +119,49 @@ class GameBody extends React.Component {
   handleTouchCard = (id) => {
     let allCards = [...this.state.cards];
 
-    // we research the index of the selected card
-    let index = allCards.findIndex(ca => ca.newIndex === id);
-    let card = allCards[index];
+    if (id !== undefined) {
+      // we research the index of the selected card
+      let index = allCards.findIndex(ca => ca.newIndex === id);
+      let card = allCards[index];
 
-    // we verify if the card selected is not transparent (hidden definitly)
-    // and if we have not already selected two cards
-    if (card.state !== "transparent" && !this.towCardSelected) {
-      console.log(this.cardSelected.length);
-      allCards[index].state = 'visible';
+      // we verify if the card selected is not transparent (hidden definitly)
+      // and if we have not already selected two cards
+      if (card.state !== "transparent" && !this.twoCardSelected) {
+        allCards[index].state = 'visible';
 
-      this.cardSelected.push(allCards[index]);
+        this.cardSelected.push(allCards[index]);
 
-      this.setState({ cards: allCards });
+        this.setState({ cards: allCards });
+      }
     }
-    
+
+    console.log("la main ");
+    console.log(this.hand);
+    console.log("les cartes");
+    console.log(this.twoCardSelected);
+  }
+
+  computerChooseCards = () => {
+    let allCards = [...this.state.cards];
+
+    allCards = allCards.filter(card => card.state !== "transparent");
+
+    let index = Math.floor(Math.random() * allCards.length);
+
+    return allCards[index].newIndex;
+  }
+
+  handleComputerGame = () => {
+    this.timerID = setInterval(() => {
+      this.handleTouchCard(this.computerChooseCards());
+      clearInterval(this.timerID);
+    }, 1000);
+
+    this.handleTouchCard(this.computerChooseCards());
+  }
+
+  passHand = () => {
+    this.hand = !this.hand;
   }
 
   render() {
